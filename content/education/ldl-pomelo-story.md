@@ -13,11 +13,3 @@
 「問得好！」高醫師拿起她的藥單，逐項確認，並考量她的疑慮，將原先的藥物調整為**較不容易受柚子影響的降膽固醇藥物**。他也提醒她：不同藥物與柚子的交互作用不同，吃藥期間若想吃柚子，先讓醫師或藥師確認自己的整份藥單；可別因為擔心，就自行停藥。
 
 小二說：健檢數字是提醒，不是判決書。把生活裡的疑問說出來，和醫師一起選擇適合自己的治療，才是照顧健康的好開始。
-
----
-
-**衛教提醒：**這是去識別化的故事示意，不提供個別診斷或用藥建議。LDL-C 達 190 mg/dL 應由醫師積極評估；柚子與部分藥物可能發生交互作用，請依自己的完整藥單諮詢醫師或藥師。
-
-參考資料：[美國心臟協會膽固醇治療指引](https://professional.heart.org/en/-/media/Files/Professional/Quality-Improvement/Check-Change-Control-Cholesterol/AHA20PrimaryPocketGuideFinal.pdf)、[衛生福利部食藥署柚子與用藥提醒](https://www.mohw.gov.tw/cp-2648-20155-1.html)、[英國 NHS rosuvastatin 藥物說明](https://www.nhs.uk/medicines/rosuvastatin/common-questions-about-rosuvastatin/)。
-
-插圖為 AI 生成的診間示意圖，經 Canva 美化；人物並非真實病人。
