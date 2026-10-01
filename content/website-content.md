@@ -48,6 +48,10 @@
 
 生活形象照 `assets/images/background-portrait.png` 位於「醫師之外」，以原始比例呈現；「學歷與經歷」僅保留學歷、經歷與專科資格。桌機版採文字、生活照、鋼琴 YouTube 卡片三欄，手機版依序上下排列。
 
+## 衛教小故事
+
+- [膽固醇、柚子與安心用藥](https://github.com/kenkao0127-droid/dr-kao-personal-website/blob/main/content/education/ldl-pomelo-story.md)：去識別化衛教故事，搭配 AI 生成並經 Canva 美化的診間示意圖；網站「醫學教育」區塊提供入口。
+
 ## 演講照片清單
 
 | 檔案 | 網站顯示日期 | 場地 | 主題 |
