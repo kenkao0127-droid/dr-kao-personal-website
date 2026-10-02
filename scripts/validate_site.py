@@ -8,6 +8,8 @@ import shutil
 import struct
 
 ROOT = Path(__file__).resolve().parents[1]
+STORY_PAGE = 'education/ldl-pomelo-story.html'
+ROOT_FILES = {'index.html', '.nojekyll', STORY_PAGE}
 
 
 def require(condition, message):
@@ -45,7 +47,7 @@ class Site(HTMLParser):
 
 def publication_source(relative, *, allow_root_files=False):
     parts = relative.split('/')
-    root_file = allow_root_files and relative in {'index.html', '.nojekyll'}
+    root_file = allow_root_files and relative in ROOT_FILES
     # Accept canonical, portable relative URL paths only; never normalize them.
     if (not root_file and (len(parts) < 2 or parts[0] != 'assets')) or any(
         part in {'', '.', '..'}
@@ -86,6 +88,15 @@ def validate():
             require(re.fullmatch(r'tel:\+[0-9]+', href), 'Only HTTPS and valid telephone links are permitted')
     for asset in p.assets:
         publication_source(asset)
+    story = publication_source(STORY_PAGE, allow_root_files=True).read_text(encoding='utf-8')
+    sp = Site()
+    sp.feed(story)
+    for image in sp.images:
+        require(image.startswith('../assets/'), 'Story images must come from assets')
+        publication_source(image[3:])
+        sp.assets.discard(image)
+        p.assets.add(image[3:])
+    require(not [k for k, n in Counter(sp.ids).items() if n > 1], 'Duplicate element IDs in story')
     expected = {
         'https://lin.ee/Wjt5Hny', 'https://www.youtube.com/@kenkao0127',
         'https://maps.app.goo.gl/tgkNG9uiXQB17oSY9', 'https://lin.ee/j3BF0Tz',
@@ -104,7 +115,7 @@ def validate():
     width, height = struct.unpack('>II', data[16:24])
     require(width == height, 'LINE QR bitmap must remain square')
     print(f'PASS: {len(p.ids)} IDs; {len(p.assets)} local assets; 7 talks; confirmed clinic links; portrait location; square QR')
-    return {'index.html', '.nojekyll', *p.assets}
+    return {'index.html', '.nojekyll', STORY_PAGE, *p.assets}
 
 
 def main():
