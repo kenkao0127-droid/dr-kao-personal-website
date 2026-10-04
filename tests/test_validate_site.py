@@ -56,6 +56,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         (self.root / 'index.html').write_text(self.html, encoding='utf-8')
         (self.root / '.nojekyll').write_text('', encoding='utf-8')
         (self.root / 'education').mkdir()
+        (self.root / 'education/index.html').write_text('<main id="main"></main>', encoding='utf-8')
         (self.root / 'education/ldl-pomelo-story.html').write_text(
             '<img src="../assets/images/portrait.png" alt="fixture" width="10" height="10">',
             encoding='utf-8',
@@ -150,7 +151,7 @@ class PublicationBoundaryTests(unittest.TestCase):
                     source.rename(link)
 
     def test_missing_publication_files_are_rejected(self):
-        for relative in ('assets/site.js', 'index.html', '.nojekyll'):
+        for relative in ('assets/site.js', 'index.html', '.nojekyll', 'education/index.html'):
             with self.subTest(relative=relative):
                 path = self.root / relative
                 original = path.read_bytes()
@@ -179,7 +180,7 @@ class PublicationBoundaryTests(unittest.TestCase):
 
     def test_validated_file_set_is_exact_allowlist(self):
         (self.root / 'assets/unreferenced.txt').write_text('not public', encoding='utf-8')
-        self.assertEqual(self.validate(), {'index.html', '.nojekyll', 'education/ldl-pomelo-story.html'} | self.assets)
+        self.assertEqual(self.validate(), {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html'} | self.assets)
 
     def build(self, target):
         with patch.object(sys, 'argv', ['validate_site.py', '--build', str(target)]):
@@ -275,7 +276,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             path.relative_to(target).as_posix()
             for path in target.rglob('*') if path.is_file()
         }
-        self.assertEqual(actual, {'index.html', '.nojekyll', 'education/ldl-pomelo-story.html'} | self.assets)
+        self.assertEqual(actual, {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html'} | self.assets)
         for relative in actual:
             with self.subTest(relative=relative):
                 self.assertEqual((target / relative).read_bytes(), (self.root / relative).read_bytes())
@@ -289,7 +290,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         expected = {
-            'index.html', '.nojekyll', 'education/ldl-pomelo-story.html',
+            'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html',
             'assets/site.css', 'assets/site.js', 'assets/images/ldl-pomelo-canva.jpg',
             'assets/images/portrait.png', 'assets/images/background-portrait.png',
             'assets/images/line-qr.png', 'assets/images/talk-2025-11-23.jpg',
@@ -334,6 +335,59 @@ class PublicationBoundaryTests(unittest.TestCase):
         )
         self.assertNotEqual(result.returncode, 0, result.stdout)
         self.assertIn('Only HTTPS and valid telephone links are permitted', result.stderr)
+
+    def test_story_hub_links_cannot_escape_published_pages(self):
+        accepted = self.html + '<a href="education/">stories</a>'
+        (self.root / 'index.html').write_text(accepted, encoding='utf-8')
+        self.validate()
+        rejected = [
+            'education/../README.md',
+            'javascript:alert(1)',
+            'education/%2e%2e/index.html',
+            '../secrets',
+            '/education/',
+            'education/index.html/../../README.md',
+        ]
+        for href in rejected:
+            with self.subTest(href=href):
+                (self.root / 'index.html').write_text(
+                    self.html + f'<a href="{href}">nope</a>', encoding='utf-8'
+                )
+                with self.assertRaisesRegex(ValueError, 'Only HTTPS and valid telephone links are permitted'):
+                    self.validate()
+
+    def test_symbolic_link_stories_page_is_rejected(self):
+        link = self.root / 'education/index.html'
+        source = self.root / 'education/index.original.html'
+        link.rename(source)
+        try:
+            with self.symbolic_link(link, source):
+                with self.assertRaisesRegex(ValueError, 'Missing or unsafe publication file'):
+                    self.validate()
+        finally:
+            if link.exists() or link.is_symlink():
+                link.unlink()
+            source.rename(link)
+
+    def test_real_stories_hub_is_static_and_linked(self):
+        project = Path(validate_site.__file__).resolve().parents[1]
+        hub = (project / 'education/index.html').read_text(encoding='utf-8')
+        for href in (
+            'https://kenkao0127-droid.github.io/chengmei-pneumothorax-education/',
+            'https://kenkao0127-droid.github.io/chengmei-pneumothorax-education/education-story.html',
+            'https://www.youtube.com/watch?v=uVR-aU10Y-s',
+            'ldl-pomelo-story.html',
+        ):
+            self.assertIn(f'href="{href}"', hub)
+        lowered = hub.lower()
+        self.assertNotIn('<form', lowered)
+        self.assertNotIn('<input', lowered)
+        self.assertNotIn('<textarea', lowered)
+        index = (project / 'index.html').read_text(encoding='utf-8')
+        self.assertIn('href="education/"', index)
+        story = (project / 'education/ldl-pomelo-story.html').read_text(encoding='utf-8')
+        self.assertIn('href="./"', story)
+        self.assertIn('href="../"', story)
 
 
 if __name__ == '__main__':

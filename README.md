@@ -7,11 +7,21 @@
 
 ## 正式網站內容在哪裡
 
-- `index.html`：頁面結構、各區塊的文字與連結。
+- `index.html`：頁面結構、各區塊的文字與連結。首頁選單含「醫療小故事」。
 - `assets/site.css`：顏色、字型、桌面／手機版排版。
 - `assets/site.js`：手機選單與演講照片放大檢視。
 - `assets/images/`：形象照、官方 LINE QR Code、七張演講照片。
+- `education/index.html`：醫療小故事總覽頁。LINE 圖文選單與首頁「醫療小故事」都連到這裡。
+- `education/ldl-pomelo-story.html`：膽固醇與柚子的單篇故事；頁首可回到故事總覽。
 - `content/website-content.md`：已發布文案的閱讀版與照片清單；一般內容修改時，先在此檔確認文字再更新網頁。
+
+## 新增一則醫療小故事
+
+1. 打開 `education/index.html`，複製一個 `article.story-card`。
+2. 改類別、標題、兩到三行摘要，以及「閱讀故事 →」或「觀看影片 →」的網址。
+3. 連到站外頁面或影片即可，不必改檢查程式。
+4. 若新增的是本站頁面（`education/` 底下的 html），還要把檔名加入 `scripts/validate_site.py` 的 `PUBLISHED_HTML`，否則不會被發布。
+5. 推送前仍執行本機安全檢查。不要加入表單、AI、自由文字輸入或可識別個資。
 
 ## 日後最簡單的更新方式
 

@@ -9,7 +9,11 @@ import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 STORY_PAGE = 'education/ldl-pomelo-story.html'
-ROOT_FILES = {'index.html', '.nojekyll', STORY_PAGE}
+STORIES_PAGE = 'education/index.html'
+PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE}
+ROOT_FILES = {'.nojekyll', *PUBLISHED_HTML}
+_HREF_FORBIDDEN = re.compile(r'[\\<>:"|?*%#\x00-\x1f\x7f]')
+_WINDOWS_NAME = re.compile(r'(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?: *\..*)?', re.I)
 
 
 def require(condition, message):
@@ -71,32 +75,90 @@ def publication_source(relative, *, allow_root_files=False):
     return source
 
 
+def resolve_page_href(page, href):
+    """Resolve a same-site href onto a published HTML page, without normalizing paths."""
+    require(href and not href.startswith(('/', '\\')), 'Only HTTPS and valid telephone links are permitted')
+    path, separator, fragment = href.partition('#')
+    if separator:
+        require(
+            fragment and '/' not in fragment and not _HREF_FORBIDDEN.search(fragment),
+            f'Broken section link: {href}',
+        )
+    require(path and not _HREF_FORBIDDEN.search(path), 'Only HTTPS and valid telephone links are permitted')
+    directory = path.endswith('/')
+    parts = path.split('/')
+    if directory:
+        parts = parts[:-1]
+    require(parts and all(parts), 'Only HTTPS and valid telephone links are permitted')
+    stack = page.split('/')[:-1]
+    for part in parts:
+        require(
+            part in {'.', '..'} or (
+                not part.endswith((' ', '.')) and not _WINDOWS_NAME.fullmatch(part)
+            ),
+            'Only HTTPS and valid telephone links are permitted',
+        )
+        if part == '.':
+            continue
+        if part == '..':
+            require(stack, 'Only HTTPS and valid telephone links are permitted')
+            stack.pop()
+            continue
+        stack.append(part)
+    if directory:
+        stack.append('index.html')
+    resolved = '/'.join(stack)
+    require(resolved in PUBLISHED_HTML, 'Only HTTPS and valid telephone links are permitted')
+    return resolved
+
+
+def validate_anchors(parser, page):
+    duplicate = 'Duplicate element IDs' if page == 'index.html' else (
+        'Duplicate element IDs in story' if page == STORY_PAGE else f'Duplicate element IDs in {page}'
+    )
+    require(not [k for k, n in Counter(parser.ids).items() if n > 1], duplicate)
+    for anchor in parser.anchors:
+        href = anchor['href']
+        if href.startswith('#'):
+            require(href[1:] in parser.ids, f'Broken section link: {href}')
+        elif href.startswith('https://'):
+            if anchor.get('target') == '_blank':
+                require('noopener' in anchor.get('rel', '').split(), 'External link needs noopener')
+        elif re.fullmatch(r'tel:\+[0-9]+', href):
+            continue
+        else:
+            resolve_page_href(page, href)
+
+
+def absorb_subpage(page, published_assets):
+    html = publication_source(page, allow_root_files=True).read_text(encoding='utf-8')
+    parser = Site()
+    parser.feed(html)
+    prefix = '../' * page.count('/')
+    for image in parser.images:
+        require(image.startswith(prefix + 'assets/'), 'Story images must come from assets')
+        relative = image[len(prefix):]
+        publication_source(relative)
+        parser.assets.discard(image)
+        published_assets.add(relative)
+    for asset in parser.assets:
+        require(asset.startswith(prefix + 'assets/'), 'Story images must come from assets')
+        relative = asset[len(prefix):]
+        publication_source(relative)
+        published_assets.add(relative)
+    validate_anchors(parser, page)
+
+
 def validate():
     html = publication_source('index.html', allow_root_files=True).read_text(encoding='utf-8')
     publication_source('.nojekyll', allow_root_files=True)
     p = Site()
     p.feed(html)
-    require(not [k for k, n in Counter(p.ids).items() if n > 1], 'Duplicate element IDs')
-    for anchor in p.anchors:
-        href = anchor['href']
-        if href.startswith('#'):
-            require(href[1:] in p.ids, f'Broken section link: {href}')
-        elif href.startswith('https://'):
-            if anchor.get('target') == '_blank':
-                require('noopener' in anchor.get('rel', '').split(), 'External link needs noopener')
-        else:
-            require(re.fullmatch(r'tel:\+[0-9]+', href), 'Only HTTPS and valid telephone links are permitted')
+    validate_anchors(p, 'index.html')
     for asset in p.assets:
         publication_source(asset)
-    story = publication_source(STORY_PAGE, allow_root_files=True).read_text(encoding='utf-8')
-    sp = Site()
-    sp.feed(story)
-    for image in sp.images:
-        require(image.startswith('../assets/'), 'Story images must come from assets')
-        publication_source(image[3:])
-        sp.assets.discard(image)
-        p.assets.add(image[3:])
-    require(not [k for k, n in Counter(sp.ids).items() if n > 1], 'Duplicate element IDs in story')
+    for page in (STORIES_PAGE, STORY_PAGE):
+        absorb_subpage(page, p.assets)
     expected = {
         'https://lin.ee/Wjt5Hny', 'https://www.youtube.com/@kenkao0127',
         'https://maps.app.goo.gl/tgkNG9uiXQB17oSY9', 'https://lin.ee/j3BF0Tz',
@@ -114,8 +176,8 @@ def validate():
     require(data[:8] == b'\x89PNG\r\n\x1a\n', 'LINE QR bitmap must be PNG')
     width, height = struct.unpack('>II', data[16:24])
     require(width == height, 'LINE QR bitmap must remain square')
-    print(f'PASS: {len(p.ids)} IDs; {len(p.assets)} local assets; 7 talks; confirmed clinic links; portrait location; square QR')
-    return {'index.html', '.nojekyll', STORY_PAGE, *p.assets}
+    print(f'PASS: {len(p.ids)} IDs; {len(p.assets)} local assets; 7 talks; confirmed clinic links; portrait location; square QR; stories hub')
+    return {'.nojekyll', *PUBLISHED_HTML, *p.assets}
 
 
 def main():

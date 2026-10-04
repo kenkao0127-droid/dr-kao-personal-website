@@ -65,6 +65,11 @@
 - 官方 LINE：`https://lin.ee/Wjt5Hny`
 - LINE ID：`@174kjvzv`
 - 鋼琴 YouTube：`https://www.youtube.com/@kenkao0127`
+- 醫療小故事總覽：`education/index.html`
+
+## 醫療小故事
+
+總覽頁文案以門診故事為入口，不收集姓名、LINE ID、症狀或病歷，也不提供自由文字輸入。新增故事時，複製 `education/index.html` 的一張 `article.story-card`，只改標題、摘要與連結。摘要不要加入來源以外的醫療事實。
 
 ## 發布前檢查
 

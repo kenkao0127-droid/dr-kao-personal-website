@@ -24,11 +24,17 @@
     .story img { width: 100%; height: auto; border-radius: .6rem; margin: 0 0 2rem; box-shadow: var(--shadow); }
     .story p { font-size: 1.05rem; line-height: 1.95; color: var(--ink-soft); margin: 0 0 1.4rem; }
     .story .back { display: inline-block; margin-bottom: 1.5rem; color: var(--mint-deep); font-size: .88rem; font-weight: 700; text-decoration: none; }
+    .story-crumbs { display: flex; flex-wrap: wrap; gap: .35rem 1.15rem; margin: 0 0 1.5rem; }
+    .story-crumbs .back { margin-bottom: 0; min-height: 44px; line-height: 44px; }
+    .story p.story-note { margin-top: 2.2rem; color: var(--muted); font-size: .8rem; line-height: 1.75; }
   </style>
 </head>
 <body>
   <main class="story">
-    <a class="back" href="../">← 高傳紘醫師個人網站</a>
+    <nav class="story-crumbs" aria-label="文章導覽">
+      <a class="back" href="./">← 回醫療小故事</a>
+      <a class="back" href="../">高傳紘醫師首頁</a>
+    </nav>
     <h1>年輕就不用擔心膽固醇？小二說個中秋故事</h1>
     <img src="../assets/images/ldl-pomelo-canva.jpg" width="1600" height="899" alt="診間衛教卡通示意圖">
     <p>各位看倌，小二今天要說的，是一位職場新鮮人的故事。</p>
@@ -37,6 +43,7 @@
     <p>眼看中秋節快到了，她又想起一件事：「醫師，我家每年都會吃柚子。聽說柚子會跟降膽固醇藥打架，是真的嗎？」</p>
     <p>「問得好！」高醫師拿起她的藥單，逐項確認，並考量她的疑慮，將原先的藥物調整為<strong>較不容易受柚子影響的降膽固醇藥物</strong>。他也提醒她：不同藥物與柚子的交互作用不同，吃藥期間若想吃柚子，先讓醫師或藥師確認自己的整份藥單；可別因為擔心，就自行停藥。</p>
     <p>小二說：健檢數字是提醒，不是判決書。把生活裡的疑問說出來，和醫師一起選擇適合自己的治療，才是照顧健康的好開始。</p>
+    <p class="story-note">本站內容為一般健康衛教資訊，不能取代個別診斷、治療或用藥建議。若有個人症狀或健康問題，請由醫療專業人員實際評估。</p>
   </main>
 </body>
 </html>
