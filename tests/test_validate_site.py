@@ -57,6 +57,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         (self.root / '.nojekyll').write_text('', encoding='utf-8')
         (self.root / 'education').mkdir()
         (self.root / 'education/index.html').write_text('<main id="main"></main>', encoding='utf-8')
+        (self.root / 'education/globus-story.html').write_text('<main id="main"></main>', encoding='utf-8')
         (self.root / 'education/ldl-pomelo-story.html').write_text(
             '<img src="../assets/images/portrait.png" alt="fixture" width="10" height="10">',
             encoding='utf-8',
@@ -180,7 +181,7 @@ class PublicationBoundaryTests(unittest.TestCase):
 
     def test_validated_file_set_is_exact_allowlist(self):
         (self.root / 'assets/unreferenced.txt').write_text('not public', encoding='utf-8')
-        self.assertEqual(self.validate(), {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html'} | self.assets)
+        self.assertEqual(self.validate(), {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html', 'education/globus-story.html'} | self.assets)
 
     def build(self, target):
         with patch.object(sys, 'argv', ['validate_site.py', '--build', str(target)]):
@@ -276,7 +277,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             path.relative_to(target).as_posix()
             for path in target.rglob('*') if path.is_file()
         }
-        self.assertEqual(actual, {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html'} | self.assets)
+        self.assertEqual(actual, {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html', 'education/globus-story.html'} | self.assets)
         for relative in actual:
             with self.subTest(relative=relative):
                 self.assertEqual((target / relative).read_bytes(), (self.root / relative).read_bytes())
@@ -290,6 +291,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         expected = {
+            'education/globus-story.html', 'assets/globus-story.css', 'assets/images/globus-clinic.webp',
             'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html',
             'assets/site.css', 'assets/site.js', 'assets/images/ldl-pomelo-canva.jpg',
             'assets/images/portrait.png', 'assets/images/background-portrait.png',
@@ -377,6 +379,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'https://kenkao0127-droid.github.io/chengmei-pneumothorax-education/education-story.html',
             'https://www.youtube.com/watch?v=uVR-aU10Y-s',
             'ldl-pomelo-story.html',
+            'globus-story.html',
         ):
             self.assertIn(f'href="{href}"', hub)
         lowered = hub.lower()
@@ -388,6 +391,10 @@ class PublicationBoundaryTests(unittest.TestCase):
         story = (project / 'education/ldl-pomelo-story.html').read_text(encoding='utf-8')
         self.assertIn('href="./"', story)
         self.assertIn('href="../"', story)
+        globus = (project / 'education/globus-story.html').read_text(encoding='utf-8')
+        self.assertIn('href="./"', globus)
+        self.assertIn('href="../"', globus)
+        self.assertIn('id="warning"', globus)
 
 
 if __name__ == '__main__':

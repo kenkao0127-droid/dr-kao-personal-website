@@ -1,0 +1,70 @@
+/* Article styles; shared colours and typography come from site.css. */
+.globus-page { background: var(--paper); }
+.globus-header { border-bottom: 1px solid var(--line); }
+.globus-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.1rem; }
+.globus-brand { text-decoration: none; }
+.globus-brand span { display: block; font-family: var(--serif); font-size: 1.25rem; font-weight: 700; }
+.globus-brand small { display: block; color: var(--muted); font-size: .76rem; }
+.globus-back { display: inline-flex; align-items: center; min-height: 44px; color: var(--mint-deep); font-size: .88rem; font-weight: 700; text-decoration: none; }
+.globus-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: 3.8rem; }
+.globus-eyebrow, .globus-section-label { color: var(--mint-deep); font-size: .8rem; font-weight: 700; letter-spacing: .08em; }
+.globus-eyebrow { margin-bottom: 1.5rem; }
+.globus-eyebrow span { white-space: nowrap; }
+.globus-hero h1 { font-family: var(--serif); font-size: clamp(2.05rem, 4vw, 3.6rem); line-height: 1.4; letter-spacing: -.045em; margin: 0 0 1.5rem; }
+.globus-deck { color: var(--clay); font-family: var(--serif); font-size: clamp(1.18rem, 2vw, 1.5rem); line-height: 1.8; margin-bottom: 1.2rem; }
+.globus-intro { color: var(--ink-soft); font-size: 1rem; line-height: 1.9; }
+.globus-toc { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.8rem; }
+.globus-toc a { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid var(--line); border-radius: 4px; padding: .5rem .8rem; color: var(--mint-deep); background: var(--white); text-decoration: none; font-size: .85rem; font-weight: 600; }
+.globus-toc a:hover { border-color: var(--mint-deep); }
+.globus-figure { margin: 0; }
+.globus-figure img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: var(--shadow); }
+.globus-figure figcaption { margin-top: .8rem; color: var(--muted); font-size: .75rem; line-height: 1.75; }
+.globus-content { width: min(760px, calc(100% - 32px)); margin: 0 auto; padding-bottom: 4rem; }
+.globus-content section { padding-block: 2.6rem; border-top: 1px solid var(--line); scroll-margin-top: 1.5rem; }
+.globus-section-label { margin: 0 0 .9rem; }
+.globus-content h2 { font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 1.85rem); line-height: 1.6; margin: 0 0 1.3rem; letter-spacing: -.02em; }
+.globus-content p, .globus-content li { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.95; }
+.globus-content p { margin: 0 0 1.3rem; }
+.globus-content p.globus-section-label { font-size: .8rem; color: var(--mint-deep); }
+.globus-content blockquote { margin: 1.9rem 0; padding: 1.2rem 1.5rem; border-left: 3px solid var(--mint-deep); background: #eaf1ed; font-family: var(--serif); font-size: 1.22rem; line-height: 1.95; }
+.globus-note { padding: 1rem 1.2rem; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: .88rem; line-height: 1.85; }
+.globus-factors { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem; margin: 1.4rem 0 1.6rem; }
+.globus-factors div { padding: 1.25rem; border: 1px solid var(--line); background: var(--white); border-radius: 5px; }
+.globus-factors dt { color: var(--mint-deep); font-weight: 700; margin-bottom: .45rem; }
+.globus-factors dd { margin: 0; color: var(--ink-soft); font-size: .94rem; line-height: 1.8; }
+.globus-content section.globus-warning { padding: 1.8rem; border: 1px solid #d5bca7; border-left: 4px solid var(--clay); background: #f6eee6; border-radius: 5px; }
+.globus-warning ul { margin: 0 0 1.3rem; padding-left: 1.4rem; }
+.globus-warning li { margin-bottom: .45rem; }
+.globus-content p.globus-warning-end { font-size: .94rem; margin-bottom: 0; }
+.globus-closing { text-align: center; padding: 3rem 0; }
+.globus-closing > span { font-size: 1.6rem; }
+.globus-closing p { color: var(--ink); font-family: var(--serif); font-size: 1.6rem; margin: .6rem 0 1rem; }
+.globus-closing a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mint-deep); font-weight: 700; text-decoration: none; }
+.globus-content .globus-references { padding-block: 1.5rem 0; }
+.globus-references h2 { font-family: var(--sans); font-size: .95rem; margin-bottom: .7rem; }
+.globus-references p, .globus-references li { color: var(--muted); font-size: .85rem; line-height: 1.8; }
+.globus-references ul { padding-left: 1.2rem; margin-bottom: 0; }
+.globus-references a { color: var(--mint-deep); text-underline-offset: .2em; overflow-wrap: anywhere; }
+@media (max-width: 720px) {
+  .globus-header-inner { gap: .5rem; }
+  .globus-brand span { font-size: 1.08rem; }
+  .globus-brand small { font-size: .67rem; }
+  .globus-back { font-size: .78rem; }
+  .globus-hero { grid-template-columns: 1fr; padding-block: 2.5rem 1rem; gap: 1.8rem; }
+  .globus-hero h1 { font-size: clamp(2rem, 7.7vw, 3rem); }
+  .globus-intro br { display: none; }
+  .globus-figure { max-width: 480px; margin-inline: auto; }
+  .globus-content section { padding-block: 2rem; }
+  .globus-factors { grid-template-columns: 1fr; }
+  .globus-content section.globus-warning { padding: 1.3rem; }
+}
+@media print {
+  .globus-header, .globus-toc, .globus-closing a, .skip-link { display: none; }
+  .globus-hero { padding-block: 1rem; gap: 1.5rem; }
+  .globus-hero h1 { font-size: 2rem; }
+  .globus-content { width: 100%; padding-bottom: 0; }
+  .globus-content section { padding-block: 1rem; }
+  .globus-factors div, .globus-warning { break-inside: avoid; }
+  .globus-figure img { box-shadow: none; }
+}
+

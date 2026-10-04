@@ -10,7 +10,7 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 STORY_PAGE = 'education/ldl-pomelo-story.html'
 STORIES_PAGE = 'education/index.html'
-PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE}
+PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html'}
 ROOT_FILES = {'.nojekyll', *PUBLISHED_HTML}
 _HREF_FORBIDDEN = re.compile(r'[\\<>:"|?*%#\x00-\x1f\x7f]')
 _WINDOWS_NAME = re.compile(r'(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?: *\..*)?', re.I)
@@ -157,7 +157,7 @@ def validate():
     validate_anchors(p, 'index.html')
     for asset in p.assets:
         publication_source(asset)
-    for page in (STORIES_PAGE, STORY_PAGE):
+    for page in sorted(PUBLISHED_HTML - {'index.html'}):
         absorb_subpage(page, p.assets)
     expected = {
         'https://lin.ee/Wjt5Hny', 'https://www.youtube.com/@kenkao0127',
