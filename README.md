@@ -13,6 +13,7 @@
 - `assets/images/`：形象照、官方 LINE QR Code、七張演講照片。
 - `education/index.html`：醫療小故事總覽頁。LINE 圖文選單與首頁「醫療小故事」都連到這裡。
 - `education/ldl-pomelo-story.html`：膽固醇與柚子的單篇故事；頁首可回到故事總覽。
+- `education/asthma-diabetes-story.html`：氣喘與糖尿病的整合照護門診故事；使用 `assets/asthma-diabetes-story.css` 與不含原圖中繼資料的 `assets/images/asthma-diabetes-clinic.webp`。
 - `education/globus-story.html`：咽喉球門診故事，包含原因說明與就醫警訊，和衛教總覽雙向連結。
 - `assets/globus-story.css`、`assets/images/globus-clinic.webp`：咽喉球文章版面與插畫；圖片保留完整構圖並轉為不含原圖中繼資料的 WebP。
 - `content/website-content.md`：已發布文案的閱讀版與照片清單；一般內容修改時，先在此檔確認文字再更新網頁。
