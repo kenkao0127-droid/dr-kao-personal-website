@@ -10,7 +10,7 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 STORY_PAGE = 'education/ldl-pomelo-story.html'
 STORIES_PAGE = 'education/index.html'
-PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html'}
+PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html'}
 ROOT_FILES = {'.nojekyll', *PUBLISHED_HTML}
 _HREF_FORBIDDEN = re.compile(r'[\\<>:"|?*%#\x00-\x1f\x7f]')
 _WINDOWS_NAME = re.compile(r'(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?: *\..*)?', re.I)
