@@ -166,8 +166,8 @@ def validate():
         'tel:+8866' + '3039028', 'tel:+8866' + '2215289',
     }
     require(expected.issubset({a['href'] for a in p.anchors}), 'Missing confirmed contact links')
-    require(len(p.talks) == 7 and len(set(p.talks)) == 7, 'Expected seven distinct talk photos')
-    require(len(set(p.images)) == 10, 'Expected two portraits, seven talks, and one QR code')
+    require(len(p.talks) == 8 and len(set(p.talks)) == 8, 'Expected eight distinct talk photos')
+    require(len(set(p.images)) == 11, 'Expected two portraits, eight talks, and one QR code')
     background = re.search(r'<section[^>]+id="background".*?</section>', html, re.S).group()
     beyond = re.search(r'<section[^>]+id="beyond".*?</section>', html, re.S).group()
     require('background-portrait.png' not in background, 'Portrait must not be in the background section')
@@ -176,7 +176,7 @@ def validate():
     require(data[:8] == b'\x89PNG\r\n\x1a\n', 'LINE QR bitmap must be PNG')
     width, height = struct.unpack('>II', data[16:24])
     require(width == height, 'LINE QR bitmap must remain square')
-    print(f'PASS: {len(p.ids)} IDs; {len(p.assets)} local assets; 7 talks; confirmed clinic links; portrait location; square QR; stories hub')
+    print(f'PASS: {len(p.ids)} IDs; {len(p.assets)} local assets; 8 talks; confirmed clinic links; portrait location; square QR; stories hub')
     return {'.nojekyll', *PUBLISHED_HTML, *p.assets}
 
 

@@ -24,7 +24,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         self.addCleanup(patch.stopall)
         patch.object(validate_site, 'ROOT', self.root).start()
         images = ['portrait.png', 'background-portrait.png', 'line-qr.png']
-        images += [f'talk-{number}.jpg' for number in range(7)]
+        images += [f'talk-{number}.jpg' for number in range(8)]
         self.assets = {'assets/site.css', 'assets/site.js'}
         self.assets.update(f'assets/images/{name}' for name in images)
         for relative in self.assets:
@@ -51,7 +51,7 @@ class PublicationBoundaryTests(unittest.TestCase):
         )
         self.html += ''.join(
             f'<button class="talk-photo" data-full="assets/images/talk-{number}.jpg"></button>'
-            for number in range(7)
+            for number in range(8)
         )
         (self.root / 'index.html').write_text(self.html, encoding='utf-8')
         (self.root / '.nojekyll').write_text('', encoding='utf-8')
@@ -302,7 +302,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/images/line-qr.png', 'assets/images/talk-2025-11-23.jpg',
             'assets/images/talk-2026-03-22-1.jpg', 'assets/images/talk-2026-03-22-2.png',
             'assets/images/talk-2026-05-24.jpg', 'assets/images/talk-2026-09-08-1.jpg',
-            'assets/images/talk-2026-09-08-2.jpg', 'assets/images/talk-2026-09-08-3.jpg',
+            'assets/images/talk-2026-09-08-2.jpg', 'assets/images/talk-2026-09-08-3.jpg', 'assets/images/talk-2026-10-03.jpg',
         }
         actual = {
             path.relative_to(target).as_posix()
