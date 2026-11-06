@@ -324,7 +324,12 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/inhaler/photos/trelegy-184.jpg',
             'assets/inhaler/photos/trelegy-92.jpg',
             'assets/inhaler/photos/trimbow.jpg',
-            'assets/inhaler/photos/ventolin.jpg'
+            'assets/inhaler/photos/ventolin.jpg',
+            'assets/inhaler/photos/alvesco.png',
+            'assets/inhaler/photos/berotec.png',
+            'assets/inhaler/photos/spiolto.png',
+            'assets/inhaler/photos/spiriva.png',
+            'assets/inhaler/photos/symbicort.png'
         }
         actual = {
             path.relative_to(target).as_posix()
