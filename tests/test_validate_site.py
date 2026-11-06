@@ -65,6 +65,11 @@ class PublicationBoundaryTests(unittest.TestCase):
             '<img src="../assets/images/portrait.png" alt="fixture" width="10" height="10">',
             encoding='utf-8',
         )
+        for relative in sorted(validate_site.PUBLISHED_HTML):
+            path = self.root / relative
+            if not path.exists():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('<main id="main"></main>', encoding='utf-8')
         (self.root / 'README.md').write_text('private repository document', encoding='utf-8')
 
     def validate(self):
@@ -184,7 +189,7 @@ class PublicationBoundaryTests(unittest.TestCase):
 
     def test_validated_file_set_is_exact_allowlist(self):
         (self.root / 'assets/unreferenced.txt').write_text('not public', encoding='utf-8')
-        self.assertEqual(self.validate(), {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html', 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html'} | self.assets)
+        self.assertEqual(self.validate(), {'.nojekyll', *validate_site.PUBLISHED_HTML} | self.assets)
 
     def build(self, target):
         with patch.object(sys, 'argv', ['validate_site.py', '--build', str(target)]):
@@ -280,7 +285,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             path.relative_to(target).as_posix()
             for path in target.rglob('*') if path.is_file()
         }
-        self.assertEqual(actual, {'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html', 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html'} | self.assets)
+        self.assertEqual(actual, {'.nojekyll', *validate_site.PUBLISHED_HTML} | self.assets)
         for relative in actual:
             with self.subTest(relative=relative):
                 self.assertEqual((target / relative).read_bytes(), (self.root / relative).read_bytes())
@@ -305,7 +310,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/images/talk-2026-03-22-1.jpg', 'assets/images/talk-2026-03-22-2.png',
             'assets/images/talk-2026-05-24.jpg', 'assets/images/talk-2026-09-08-1.jpg',
             'assets/images/talk-2026-09-08-2.jpg', 'assets/images/talk-2026-09-08-3.jpg', 'assets/images/talk-2026-10-03.jpg',
-        }
+        } | set(validate_site.INHALER_PAGES) | {'assets/inhaler.css'}
         actual = {
             path.relative_to(target).as_posix()
             for path in target.rglob('*') if path.is_file()

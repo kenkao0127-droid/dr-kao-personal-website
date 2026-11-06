@@ -10,7 +10,28 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 STORY_PAGE = 'education/ldl-pomelo-story.html'
 STORIES_PAGE = 'education/index.html'
-PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html'}
+INHALER_PAGES = {
+    'education/inhaler/index.html',
+    'education/inhaler/faq.html',
+    'education/inhaler/alvesco.html',
+    'education/inhaler/berotec.html',
+    'education/inhaler/seroflo.html',
+    'education/inhaler/synbufo.html',
+    'education/inhaler/trimbow.html',
+    'education/inhaler/ventolin.html',
+    'education/inhaler/anoro.html',
+    'education/inhaler/relvar-184.html',
+    'education/inhaler/relvar-92.html',
+    'education/inhaler/trelegy-184.html',
+    'education/inhaler/trelegy-92.html',
+    'education/inhaler/foster-nexthaler.html',
+    'education/inhaler/symbicort.html',
+    'education/inhaler/spiolto.html',
+    'education/inhaler/spiriva.html',
+    'education/inhaler/avamys.html',
+    'education/inhaler/dufanas-nasal.html',
+}
+PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html', *INHALER_PAGES}
 ROOT_FILES = {'.nojekyll', *PUBLISHED_HTML}
 _HREF_FORBIDDEN = re.compile(r'[\\<>:"|?*%#\x00-\x1f\x7f]')
 _WINDOWS_NAME = re.compile(r'(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?: *\..*)?', re.I)
