@@ -173,3 +173,30 @@
   .photo-slot { min-height: 150px; }
   .photo-panel .photo-slot { min-height: 240px; }
 }
+
+.photo-slot.has-photo {
+  padding: 0;
+  background: var(--white);
+  min-height: 0;
+}
+.photo-slot.has-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  background: var(--white);
+}
+.drug-card .photo-slot.has-photo { min-height: 180px; }
+.drug-card .photo-slot.has-photo img {
+  max-height: 200px;
+  min-height: 180px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+.photo-panel .photo-slot.has-photo { min-height: 0; }
+.photo-panel .photo-slot.has-photo img { max-height: 480px; padding: .75rem; box-sizing: border-box; }
+@media (max-width: 720px) {
+  .drug-card .photo-slot.has-photo img { min-height: 150px; max-height: 170px; }
+  .photo-panel .photo-slot.has-photo img { max-height: 320px; }
+}

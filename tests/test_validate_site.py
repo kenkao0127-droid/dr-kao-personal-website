@@ -310,7 +310,22 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/images/talk-2026-03-22-1.jpg', 'assets/images/talk-2026-03-22-2.png',
             'assets/images/talk-2026-05-24.jpg', 'assets/images/talk-2026-09-08-1.jpg',
             'assets/images/talk-2026-09-08-2.jpg', 'assets/images/talk-2026-09-08-3.jpg', 'assets/images/talk-2026-10-03.jpg',
-        } | set(validate_site.INHALER_PAGES) | {'assets/inhaler.css'}
+        } | set(validate_site.INHALER_PAGES) | {'assets/inhaler.css'} | {
+            'assets/inhaler/photos/anoro.jpg',
+            'assets/inhaler/photos/avamys.jpg',
+            'assets/inhaler/photos/dufanas.jpg',
+            'assets/inhaler/photos/flutimy.jpg',
+            'assets/inhaler/photos/foster-nexthaler.jpg',
+            'assets/inhaler/photos/momenase.jpg',
+            'assets/inhaler/photos/relvar-184.jpg',
+            'assets/inhaler/photos/relvar-92.jpg',
+            'assets/inhaler/photos/symbicort.jpg',
+            'assets/inhaler/photos/synbufo.jpg',
+            'assets/inhaler/photos/trelegy-184.jpg',
+            'assets/inhaler/photos/trelegy-92.jpg',
+            'assets/inhaler/photos/trimbow.jpg',
+            'assets/inhaler/photos/ventolin.png'
+        }
         actual = {
             path.relative_to(target).as_posix()
             for path in target.rglob('*') if path.is_file()
