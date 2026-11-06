@@ -326,6 +326,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/inhaler/photos/trimbow.jpg',
             'assets/inhaler/photos/ventolin.jpg',
             'assets/inhaler/photos/alvesco.png',
+            'assets/inhaler/photos/alvesco-device.png',
             'assets/inhaler/photos/berotec.png',
             'assets/inhaler/photos/spiolto.png',
             'assets/inhaler/photos/spiriva.png',
