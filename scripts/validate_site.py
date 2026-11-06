@@ -15,7 +15,6 @@ INHALER_PAGES = {
     'education/inhaler/faq.html',
     'education/inhaler/alvesco.html',
     'education/inhaler/berotec.html',
-    'education/inhaler/seroflo.html',
     'education/inhaler/synbufo.html',
     'education/inhaler/trimbow.html',
     'education/inhaler/ventolin.html',
