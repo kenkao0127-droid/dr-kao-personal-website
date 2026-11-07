@@ -318,6 +318,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/inhaler/photos/dufanas.jpg',
             'assets/inhaler/photos/flutimy.jpg',
             'assets/inhaler/photos/foster-nexthaler.jpg',
+            'assets/inhaler/photos/foster-nexthaler-device.webp',
             'assets/inhaler/photos/momenase.jpg',
             'assets/inhaler/photos/relvar-184.jpg',
             'assets/inhaler/photos/relvar-184-device.webp',
@@ -336,8 +337,11 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/inhaler/photos/alvesco-device.png',
             'assets/inhaler/photos/berotec.png',
             'assets/inhaler/photos/spiolto.png',
+            'assets/inhaler/photos/spiolto-device.webp',
             'assets/inhaler/photos/spiriva.png',
+            'assets/inhaler/photos/spiriva-device.webp',
             'assets/inhaler/photos/symbicort.png',
+            'assets/inhaler/photos/symbicort-device.webp',
             'assets/inhaler/photos/flutimy-device.jpg',
             'assets/inhaler/photos/momenase-device.jpg'
         }
