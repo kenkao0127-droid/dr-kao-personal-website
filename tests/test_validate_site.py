@@ -315,6 +315,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/inhaler/photos/anoro.jpg',
             'assets/inhaler/photos/anoro-device.webp',
             'assets/inhaler/photos/avamys.jpg',
+            'assets/inhaler/photos/avamys-device.webp',
             'assets/inhaler/photos/dufanas.jpg',
             'assets/inhaler/photos/flutimy.jpg',
             'assets/inhaler/photos/foster-nexthaler.jpg',
