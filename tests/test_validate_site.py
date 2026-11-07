@@ -303,6 +303,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'education/asthma-diabetes-story.html', 'assets/asthma-diabetes-story.css', 'assets/images/asthma-diabetes-clinic.webp',
             'education/lung-abscess-story.html', 'assets/lung-abscess-story.css', 'assets/images/lung-abscess-xray.webp',
             'education/platelet-liver-story.html', 'assets/platelet-liver-story.css', 'assets/images/platelet-liver-clinic.webp',
+            'education/flu-vaccine-story.html',
             'index.html', '.nojekyll', 'education/index.html', 'education/ldl-pomelo-story.html',
             'assets/site.css', 'assets/site.js', 'assets/images/ldl-pomelo-canva.jpg',
             'assets/images/portrait.png', 'assets/images/background-portrait.png',
@@ -422,6 +423,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'globus-story.html',
             'asthma-diabetes-story.html',
             'platelet-liver-story.html',
+            'flu-vaccine-story.html',
         ):
             self.assertIn(f'href="{href}"', hub)
         lowered = hub.lower()
