@@ -14,6 +14,25 @@
   padding: clamp(2.2rem, 5vw, 4rem) 0 1.3rem;
   background: radial-gradient(circle at 88% 12%, var(--mint) 0, rgba(217,235,229,.5) 15%, transparent 36%);
 }
+.inhaler-welcome-art {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid #d8eae1;
+  border-radius: clamp(.8rem, 2vw, 1.4rem);
+  background: #eef8f5;
+  box-shadow: 0 12px 36px rgba(27, 87, 78, .1);
+}
+.inhaler-welcome-art img { display: block; width: 100%; height: auto; }
+.welcome-hotspot { position: absolute; border-radius: .65rem; }
+.welcome-hotspot:hover { background: rgba(22, 105, 87, .1); }
+.welcome-hotspot:focus-visible { outline: 4px solid #135e52; outline-offset: -4px; }
+.welcome-enter { left: 5.5%; top: 44%; width: 20.5%; height: 9%; }
+.welcome-name { left: 4%; top: 61%; width: 22.5%; height: 25%; }
+.welcome-look { left: 27.5%; top: 61%; width: 22.5%; height: 25%; }
+.welcome-steps { left: 51%; top: 61%; width: 22.5%; height: 25%; }
+.welcome-errors { left: 74.5%; top: 61%; width: 22%; height: 25%; }
+.inhaler-image-note { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 .inhaler-hero h1 {
   margin: 0 0 .85rem;
   font-size: clamp(2.2rem, 5.2vw, 3.5rem);
@@ -114,7 +133,7 @@
 }
 .hidden-card { display: none; }
 .resource-list { margin: 0; padding-left: 1.2rem; color: var(--ink-soft); }
-.resource-list a { color: var(--mint-deep); font-weight: 700; }
+.resource-list a { color: var(--mint-deep); font-weight: 700; overflow-wrap: anywhere; }
 .drug-page { padding: 2rem 0 4rem; }
 .crumb {
   margin: 0 0 1rem;

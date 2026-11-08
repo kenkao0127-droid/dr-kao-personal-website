@@ -311,7 +311,7 @@ class PublicationBoundaryTests(unittest.TestCase):
             'assets/images/talk-2026-03-22-1.jpg', 'assets/images/talk-2026-03-22-2.png',
             'assets/images/talk-2026-05-24.jpg', 'assets/images/talk-2026-09-08-1.jpg',
             'assets/images/talk-2026-09-08-2.jpg', 'assets/images/talk-2026-09-08-3.jpg', 'assets/images/talk-2026-10-03.jpg',
-        } | set(validate_site.INHALER_PAGES) | {'assets/inhaler.css'} | {
+        } | set(validate_site.INHALER_PAGES) | {'assets/inhaler.css', 'assets/inhaler/inhaler-welcome.webp'} | {
             'assets/inhaler/photos/anoro.jpg',
             'assets/inhaler/photos/anoro-device.webp',
             'assets/inhaler/photos/avamys.jpg',
