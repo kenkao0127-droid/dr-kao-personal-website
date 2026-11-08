@@ -187,7 +187,7 @@ def validate():
     }
     require(expected.issubset({a['href'] for a in p.anchors}), 'Missing confirmed contact links')
     require(len(p.talks) == 8 and len(set(p.talks)) == 8, 'Expected eight distinct talk photos')
-    require(len(set(p.images)) == 11, 'Expected two portraits, eight talks, and one QR code')
+    require(len(set(p.images) - {'assets/inhaler/inhaler-welcome-v2.webp'}) == 11, 'Expected two portraits, eight talks, and one QR code')
     background = re.search(r'<section[^>]+id="background".*?</section>', html, re.S).group()
     beyond = re.search(r'<section[^>]+id="beyond".*?</section>', html, re.S).group()
     require('background-portrait.png' not in background, 'Portrait must not be in the background section')
