@@ -30,7 +30,7 @@ INHALER_PAGES = {
     'education/inhaler/avamys.html',
     'education/inhaler/dufanas-nasal.html',
 }
-PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html', 'education/flu-vaccine-story.html', *INHALER_PAGES}
+PUBLISHED_HTML = {'index.html', STORIES_PAGE, STORY_PAGE, 'education/globus-story.html', 'education/asthma-diabetes-story.html', 'education/lung-abscess-story.html', 'education/platelet-liver-story.html', 'education/flu-vaccine-story.html', 'education/melena-story.html', *INHALER_PAGES}
 ROOT_FILES = {'.nojekyll', *PUBLISHED_HTML}
 _HREF_FORBIDDEN = re.compile(r'[\\<>:"|?*%#\x00-\x1f\x7f]')
 _WINDOWS_NAME = re.compile(r'(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?: *\..*)?', re.I)
